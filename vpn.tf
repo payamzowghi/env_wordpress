@@ -1,6 +1,6 @@
 resource "aws_customer_gateway" "wp" {
   bgp_asn    = 65000
-  ip_address = "50.92.193.163"
+  ip_address = "${var.ip_customer_gateway}"
   type       = "ipsec.1"
 
   tags {
@@ -30,6 +30,6 @@ resource "aws_vpn_connection" "wp" {
   }
 }
 resource "aws_vpn_connection_route" "wp" {
-  destination_cidr_block = "192.168.1.0/24"
+  destination_cidr_block = "${var.ip_prefixes}"
   vpn_connection_id      = "${aws_vpn_connection.wp.id}"
 }
